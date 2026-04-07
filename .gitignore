@@ -1,0 +1,9 @@
+*.log
+ai-cache/
+__pycache__/
+*.pyc
+*.pem
+*.key
+stealth_report.json
+.env.local
+.env

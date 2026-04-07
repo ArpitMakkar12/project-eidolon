@@ -1,0 +1,47 @@
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.3
+    container_name: eidolon-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - xpack.security.autoconfiguration.enabled=false
+      - xpack.ml.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g -Djava.security.egd=file:/dev/./urandom
+    ports:
+      - "9200:9200"
+    networks:
+      - observer-net
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.3
+    container_name: eidolon-kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=EidolonDeceptionGridAlertingKey123
+      - XPACK_SECURITY_ENCRYPTIONKEY=EidolonDeceptionGridAlertingKey123
+      - XPACK_REPORTING_ENCRYPTIONKEY=EidolonDeceptionGridAlertingKey123
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - observer-net
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.11.3
+    container_name: eidolon-logstash
+    environment:
+      - LS_JAVA_OPTS=-Xms512m -Xmx512m -Djava.security.egd=file:/dev/./urandom
+    volumes:
+      - ~/eidolon-swarm/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+    ports:
+      - "5000:5000"
+    depends_on:
+      - elasticsearch
+    networks:
+      - observer-net
+
+networks:
+  observer-net:
+    driver: bridge

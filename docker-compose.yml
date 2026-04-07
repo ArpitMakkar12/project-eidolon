@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  # ==========================================
+  # 1. IT & DEVOPS (The Keys to the Kingdom)
+  # Target Ports: 80 (HTTP), 5432 (PostgreSQL)
+  # ==========================================
+  data-analytics-cluster:
+    image: postgres:alpine
+    container_name: data-analytics-cluster
+    environment:
+      - POSTGRES_PASSWORD=admin_super_secret # Bait password
+    networks:
+      eidolon-net:
+        ipv4_address: 192.168.1.10
+
+  gitlab-internal-repo:
+    image: nginx:alpine
+    container_name: gitlab-internal-repo
+    networks:
+      eidolon-net:
+        ipv4_address: 192.168.1.11
+
+  auth-gateway-primary:
+    image: nginx:alpine
+    container_name: auth-gateway-primary
+    networks:
+      eidolon-net:
+        ipv4_address: 192.168.1.12
+
+  # ==========================================
+  # 2. FINANCE & HR (The Juicy Data)
+  # Target Ports: 80 (Fake Web Share), 6379 (Redis DB)
+  # ==========================================
+  finance-smb-share:
+    image: nginx:alpine
+    container_name: finance-smb-share
+    networks:
+      eidolon-net:
+        ipv4_address: 192.168.1.20
+
+  hr-payroll-db:
+    image: redis:alpine
+    container_name: hr-payroll-db
+    networks:
+      eidolon-net:
+        ipv4_address: 192.168.1.21
+
+  legal-archive-server:
+    image: nginx:alpine
+    container_name: legal-archive-server
+    networks:
+      eidolon-net:
+        ipv4_address: 192.168.1.22
+
+  # ==========================================
+  # 3. IOT & SPECIALIZED TECH (The Soft Targets)
+  # Target Ports: 1883 (MQTT/Telemetry), 6379 (DB)
+  # ==========================================
+  ev-charging-optimizer:
+    image: redis:alpine
+    container_name: ev-charging-optimizer
+    networks:
+      eidolon-net:
+        ipv4_address: 192.168.1.30
+
+  hvac-ecu-telemetry:
+    image: eclipse-mosquitto:latest # Authentic telemetry broker
+    container_name: hvac-ecu-telemetry
+    networks:
+      eidolon-net:
+        ipv4_address: 192.168.1.31
+
+  bms-controller-node:
+    image: eclipse-mosquitto:latest
+    container_name: bms-controller-node
+    networks:
+      eidolon-net:
+        ipv4_address: 192.168.1.32
+
+  # ==========================================
+  # 4. EXECUTIVES (The Spear-Phishing Targets)
+  # Target Ports: 22 (SSH Brute Force Trap)
+  # ==========================================
+  ceo-macbook-backup:
+    image: alpine
+    container_name: ceo-macbook-backup
+    # This command silently holds port 22 open to catch SSH brute-forcers
+    command: /bin/sh -c "apk add --no-cache openssh && ssh-keygen -A && /usr/sbin/sshd -D"
+    networks:
+      eidolon-net:
+        ipv4_address: 192.168.1.40
+
+  board-meeting-archive:
+    image: nginx:alpine
+    container_name: board-meeting-archive
+    networks:
+      eidolon-net:
+        ipv4_address: 192.168.1.41
+
+networks:
+  eidolon-net:
+    external: true
