@@ -169,7 +169,7 @@ project-eidolon/
 ├── threat_intel.py          # AbuseIPDB + IPInfo integration
 ├── attack_classifier.py     # Attack pattern recognition
 └── README.md
-
+```
 
 ## Demo
 
@@ -182,6 +182,7 @@ project-eidolon/
 [TELEGRAM] Alert sent
 [DISCORD] Alert sent
 [EMAIL] Alert sent
+```
 
 ### eBPF Stealth
 
@@ -190,7 +191,7 @@ Container 1 → TTL=64 (Linux)
 Container 2 → TTL=128 (Windows)
 Container 3 → TTL=255 (Cisco router)
 50/50 unique MAC addresses applied
-
+```
 ---
 
 ## Results
@@ -200,12 +201,12 @@ Container 3 → TTL=255 (Cisco router)
 - **60 seconds** maximum alert delivery time
 - **100%** attack classification accuracy on test data
 - **₹0** software licensing cost (100% open source)
-
+```
 ---
 
 ## License
 MIT License — Free to use, modify and distribute
-
+```
 ---
 
 ## Author
