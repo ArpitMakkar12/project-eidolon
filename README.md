@@ -126,12 +126,14 @@ nano eidolon_alert.py
 docker compose -f elk-blueprint.yml up -d
 sleep 90
 ```
+![ELK Stack](Images/Docker.png)
 
 ### 4. Deploy Honeypots
 ```bash
 docker swarm init
 docker stack deploy -c swarm-blueprint.yml eidolon-stack
 ```
+![50 Honeypots](Images/50Honeypots.png)
 
 ### 5. Start Alert Engine
 ```bash
@@ -147,8 +149,19 @@ python3 ebpf/ttl_stealth.py
 ```bash
 http://localhost:5601
 ```
+![Dashboard 1](Images/KibanaDashboard.png)
+
+![Dashboard 2](Images/KibanaTimestamp.png)
 
 ---
+
+### 8. Groq Response
+
+![Active Deception](Images/ActiveDeception.jpg)
+
+### 9. Proxy Service
+
+![Proxy Service](Images/Proxy.png)
 
 ## Project Structure
 
@@ -183,6 +196,7 @@ project-eidolon/
 [DISCORD] Alert sent
 [EMAIL] Alert sent
 ```
+![Attack Detection](Images/AttackDetection.png)
 
 ### eBPF Stealth
 
@@ -194,6 +208,10 @@ Container 3 → TTL=255 (Cisco router)
 ```
 ---
 
+### Fail2Ban
+
+![Fail2Ban Service](Images/Fail2Ban.png)
+
 ## Results
 
 - **50** self-healing honeypots on a single laptop
@@ -201,15 +219,31 @@ Container 3 → TTL=255 (Cisco router)
 - **60 seconds** maximum alert delivery time
 - **100%** attack classification accuracy on test data
 - **₹0** software licensing cost (100% open source)
-```
+
+![Dashboard](Images/Dashboard.png)
+
+## Gmail Alert
+
+![Gmail Alert](Images/GmailAlert.png)
+
+## Telegram Alert
+
+![Telegram Alert](Images/TelegramAlert.png)
+
+## Discord Alert
+
+![Discord Alert](Images/DiscordAlert.png)
+
+
 ---
 
 ## License
 MIT License — Free to use, modify and distribute
-```
 ---
 
 ## Author
 **Arpit Makkar** | [GitHub](https://github.com/ArpitMakkar12)
+
+**Keshav Sharma** | [GitHub](https://github.com/keshav301104)
 
 *Built as part of cybersecurity research project — VIT-AP University, 2026*
